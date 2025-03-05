@@ -1,0 +1,49 @@
+﻿@model CatBase.DTOs.CreateCatDTO
+
+
+<h1>Добро пожаловать на страницу Котов</h1>
+<a href="/Cat/Index" class="btn btn-primary" style="margin-bottom:20px">Список Котов</a>
+<a href="/Home/Index" class="btn btn-primary" style="margin-bottom:20px">Back to Home </a>
+<div>
+    <h1>Create a Cat</h1>
+    <form asp-action="CreateCat" asp-controller="Cat" method="post">
+        <div class="form-group">
+            <label for="Breeds">Breeds</label>
+            <select id="Breeds" name="Breeds" class="form-control" required>
+                <option value="">Breeds</option>
+                @foreach (var breed in Model.BreedsList)
+                {
+                    <option value="@breed.Value">@breed.Text</option>
+                }
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="CatsName">CatsName</label>
+            <input type="text" id="CatsName" name="CatsName" placeholder="CatsName" required>
+        </div>
+        <div class="form-group">
+            <label for="Age">Age</label>
+            <input type="number" id="Age" name="Age" class="form-control" required />
+        </div>
+        <div class="form-group">
+            <label for="Gender">Gender</label>
+            <select id="Gender" name="Gender" class="form-control" required>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="Img">Ссылка на изображение</label>
+            <input type="url" id="Img" name="Img" class="form-control" placeholder="https://example.com/cat.jpg" />
+        </div>
+       
+
+        <button type="submit">Save</button>
+    </form>
+
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success">@ViewBag.Message</div>
+    }
+</div>

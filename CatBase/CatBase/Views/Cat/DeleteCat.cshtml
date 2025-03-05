@@ -1,0 +1,28 @@
+﻿@model CatBase.DTOs.DeleteCatDTO
+
+
+<h1>Здесь можно удалить котов</h1>
+<a href="/Cat/Index" class="btn btn-primary" style="margin-bottom:20px">Back to Cats List</a>
+<a href="/Home/Index" class="btn btn-primary" style="margin-bottom:20px">Back to Home </a>
+<div>
+    <h1>Delete a Cat</h1>
+    <form asp-action="DeleteCat" asp-controller="Cat" method="post">
+        <div class="form-group">
+            <label for="id">Выберите кота:</label>
+            <select id="id" name="id" class="form-control" required>
+                <option value="">Выберите кота</option>
+                @foreach (var cat in Model.CatsList)
+                {
+                    <option value="@cat.Value">@cat.Text</option>
+                }
+            </select>
+        </div>
+        <button type="submit" class="btn btn-danger" style="margin-top: 10px;">Delete</button>
+    </form>
+
+
+    @if (ViewBag.Message != null)
+    {
+        <div class="alert alert-success">@ViewBag.Message</div>
+    }
+</div>

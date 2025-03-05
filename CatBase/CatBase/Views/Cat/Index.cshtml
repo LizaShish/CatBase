@@ -1,0 +1,63 @@
+﻿@model CatBase.DTOs.CatDTO
+<h1>Cat List</h1>
+<!DOCTYPE html>
+ <html lang="en">
+   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="stylesheet" href="~/css/styles.css" />
+   </head>
+  <a href="/Cat/CreateCat" class="btn btn-primary" style="margin-bottom:20px">Add Cat</a>
+  <a href="/Cat/DeleteCat" class="btn btn-primary" style="margin-bottom:20px">Delete Cat</a>
+  <a href="/Home/Index" class="btn btn-primary" style="margin-bottom:20px">Home</a>
+<a href="@Url.Action("GetRandomCatFact", "Cat")" class="btn btn-info">Get a fact about cats</a>
+ 
+  <form method="get" asp-action="Index" asp-controller="Cat">
+    <input type="text" name="searchString" placeholder="Search..." value="@Model.SearchTerm" />
+    <button type="submit">Search</button>
+ </form>
+<style>
+    .table td, .table th {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+</style>
+<table class="table">
+    <thead>
+        <tr>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cats in Model.Cats)
+        {
+            <tr>
+                <td>@cats.CatsName</td>
+                <td>@cats.Breeds</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @if (Model.TotalPages > 1)
+    {
+        <nav>
+            <ul class="pagination">
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Cats", new { page = i, searchString = Model.SearchTerm })">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    }
+</div>
+
+</html>
+
+
+

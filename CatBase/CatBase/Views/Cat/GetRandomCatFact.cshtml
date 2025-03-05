@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Random fact about cats";
+}
+<h1>
+    Random fact about cats
+</h1>
+
+<p>@ViewBag.CatFact</p>
+
+<a href="@Url.Action("Index", "Cat")" class="btn btn-primary">Back to CatList</a>
