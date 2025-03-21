@@ -1,4 +1,7 @@
 ﻿@model CatBase.DTOs.CatDTO
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
 <h1>Cat List</h1>
 <!DOCTYPE html>
  <html lang="en">
@@ -9,16 +12,15 @@
     <link rel="stylesheet" href="~/css/styles.css" />
    </head>
   <a href="/Cat/CreateCat" class="btn btn-primary" style="margin-bottom:20px">Add Cat</a>
-  <a href="/Cat/DeleteCat" class="btn btn-primary" style="margin-bottom:20px">Delete Cat</a>
   <a href="/Home/Index" class="btn btn-primary" style="margin-bottom:20px">Home</a>
-<a href="@Url.Action("GetRandomCatFact", "Cat")" class="btn btn-info">Get a fact about cats</a>
- 
+
   <form method="get" asp-action="Index" asp-controller="Cat">
     <input type="text" name="searchString" placeholder="Search..." value="@Model.SearchTerm" />
     <button type="submit">Search</button>
  </form>
 <style>
-    .table td, .table th {
+    .table td, .table th 
+    {
         padding-left: 15px;
         padding-right: 15px;
     }
@@ -26,16 +28,39 @@
 <table class="table">
     <thead>
         <tr>
-            <th></th>
+            <th class="center-align">CatsName</th>
+            <th class="center-align">Breeds</th>
+            <th class="center-align">Photo</th>
+            <th class="center-align">Actions</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
+        @if (Model.Cats == null || !Model.Cats.Any())
+        {
+            <tr><td colspan="3">No data</td></tr>
+        }
         @foreach (var cats in Model.Cats)
         {
             <tr>
                 <td>@cats.CatsName</td>
-                <td>@cats.Breeds</td>
+                <td>@cats.Breeds</td> 
+                <td>
+                    @if (!string.IsNullOrEmpty(cats.Img))
+                    {
+                        <img src="@cats.Img" alt="Photo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
+                    }
+                    else
+                    {
+                        <span>Нет фото</span>
+                    }
+                </td>
+                <td>
+                    <form asp-action="DeleteCat" asp-controller="Cat" method="post">
+                        <input type="hidden" asp-for="Id" value="@cats.Id" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
         }
     </tbody>

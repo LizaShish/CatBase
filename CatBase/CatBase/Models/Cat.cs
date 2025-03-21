@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public string CatsName { get; set; }
 
-        public int Age { get; set; }
+        public decimal Age { get; set; }
         public string Breeds { get; set; } 
         public string Gender { get; set; }
 

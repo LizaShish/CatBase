@@ -1,28 +1,25 @@
 ﻿@model CatBase.DTOs.DeleteCatDTO
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
 
+<div class="container">
 
-<h1>Здесь можно удалить котов</h1>
-<a href="/Cat/Index" class="btn btn-primary" style="margin-bottom:20px">Back to Cats List</a>
-<a href="/Home/Index" class="btn btn-primary" style="margin-bottom:20px">Back to Home </a>
-<div>
-    <h1>Delete a Cat</h1>
-    <form asp-action="DeleteCat" asp-controller="Cat" method="post">
-        <div class="form-group">
-            <label for="id">Выберите кота:</label>
-            <select id="id" name="id" class="form-control" required>
-                <option value="">Выберите кота</option>
-                @foreach (var cat in Model.CatsList)
-                {
-                    <option value="@cat.Value">@cat.Text</option>
-                }
-            </select>
+    <h1>Delete</h1>
+        <div class="container">
+        @if (Model != null)
+        {
+            <p>Are you sure you want to delete the cat "@Model.CatsName"?</p>
+
+            <form asp-action="DeleteCat" method="post">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </form>
+        }
+        else
+        {
+            <p>Error: Cat not found.</p>
+        }
         </div>
-        <button type="submit" class="btn btn-danger" style="margin-top: 10px;">Delete</button>
-    </form>
-
-
-    @if (ViewBag.Message != null)
-    {
-        <div class="alert alert-success">@ViewBag.Message</div>
-    }
 </div>

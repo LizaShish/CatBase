@@ -57,7 +57,7 @@ namespace CatBase.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid Id)
         {
             var cats = await _appDBContext.Cats
                 .Select(c => new { c.Id, c.CatsName }) 
@@ -77,15 +77,19 @@ namespace CatBase.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteCat(Guid id)
+        public async Task<IActionResult> DeleteCat(Guid Id)
         {
-            if (!ModelState.IsValid)
-            {
-                return View();
-            }
-            await _catService.DeleteCatAsync(id);
-            return RedirectToAction("Index");
 
+            var cat = await _appDBContext.Cats.FindAsync(Id);
+            if (cat == null)
+            {
+                return NotFound();
+            }
+
+            _appDBContext.Cats.Remove(cat);
+            await _appDBContext.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
     }
 }

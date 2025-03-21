@@ -1,3 +1,30 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1; /* Занимает все доступное пространство */
+}
+
+.footer {
+    background-color: #f8f9fa; /* Цвет фона */
+    text-align: center;
+    padding: 10px 0;
+    width: 100%;
+    margin-top: auto;
+}
+.content {
+    flex: 1;
+}
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* 100% высоты экрана */
+}
+
 html {
   font-size: 14px;
 }
@@ -20,3 +47,4 @@ html {
 body {
   margin-bottom: 60px;
 }
+

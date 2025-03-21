@@ -1,5 +1,7 @@
 ﻿@model CatBase.DTOs.HomeInfoDTO
-
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +10,7 @@
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/css/styles.css" />
 </head>
-<a href="/Cat/Index" class="btn btn-primary" style="margin-bottom:20px">Список Котов</a>
+<a href="/Cat/Index" class="btn btn-primary" style="margin-bottom:20px">Cats List</a>
 
 <body>
     <header>
@@ -42,12 +44,6 @@
             </ul>
         </div>
     </section>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 CatBase - All Rights Reserved</p>
-        </div>
-    </footer>
-
+    
 </body>
 </html>

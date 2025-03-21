@@ -117,13 +117,13 @@ namespace CatBase.Servises
             await _appDBContext.SaveChangesAsync();
         }
 
-        public async Task<DeleteCatDTO> DeleteCatAsync(Guid id)
+        public async Task<bool> DeleteCatAsync(Guid id)
         {
             
             var cat = await _appDBContext.Cats.FindAsync(id);
             if (cat == null)
             {
-                return null;
+                return false;
             }
             _appDBContext.Cats.Remove(cat);
             await _appDBContext.SaveChangesAsync(); 
@@ -134,7 +134,7 @@ namespace CatBase.Servises
                 CatsName = cat.CatsName
             };
             
-            return deleteCatDTO;
+            return true;
         }
 
     }

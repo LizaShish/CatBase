@@ -9,7 +9,7 @@ namespace CatBase.Interface
         Task<string> GetCatByIdAsync(Guid id);
         Task<List<string>> GetCatBreedsAsync(); 
         Task CreateCatAsync(CreateCatDTO createCatDTO);
-        Task<DeleteCatDTO> DeleteCatAsync(Guid id);
+        Task<bool> DeleteCatAsync(Guid id);
 
     }
 }

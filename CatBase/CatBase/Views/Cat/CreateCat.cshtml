@@ -1,8 +1,10 @@
 ﻿@model CatBase.DTOs.CreateCatDTO
-
+@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
 
 <h1>Добро пожаловать на страницу Котов</h1>
-<a href="/Cat/Index" class="btn btn-primary" style="margin-bottom:20px">Список Котов</a>
+<a href="/Cat/Index" class="btn btn-primary" style="margin-bottom:20px">Cats List</a>
 <a href="/Home/Index" class="btn btn-primary" style="margin-bottom:20px">Back to Home </a>
 <div>
     <h1>Create a Cat</h1>
@@ -23,7 +25,8 @@
         </div>
         <div class="form-group">
             <label for="Age">Age</label>
-            <input type="number" id="Age" name="Age" class="form-control" required />
+            <input type="number"  step ="0.1" min ="0", max="100"id="Age" name="Age" class="form-control" required />
+            <span asp-validation-for="Age" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label for="Gender">Gender</label>
