@@ -1,4 +1,5 @@
-﻿@model CatBase.DTOs.DeleteCatDTO
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CatBase.DTOs.DeleteCatDTO
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
@@ -11,8 +12,8 @@
         {
             <p>Are you sure you want to delete the cat "@Model.CatsName"?</p>
 
-            <form asp-action="DeleteCat" method="post">
-                <input type="hidden" asp-for="Id" />
+            <form asp-action="DeleteCat" asp-controller= "Cat" method="post">
+                <input type="hidden" asp-for="Id" value="@Model.Id" />
                 <button type="submit" class="btn btn-danger">Delete</button>
                 <a asp-action="Index" class="btn btn-secondary">Cancel</a>
             </form>

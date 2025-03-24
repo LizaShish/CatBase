@@ -1,3 +1,5 @@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 html, body {
     height: 100%;
     margin: 0;
@@ -5,17 +7,11 @@ html, body {
     flex-direction: column;
 }
 
-.content {
-    flex: 1; /* Занимает все доступное пространство */
+main {
+    flex: 1;
 }
 
-.footer {
-    background-color: #f8f9fa; /* Цвет фона */
-    text-align: center;
-    padding: 10px 0;
-    width: 100%;
-    margin-top: auto;
-}
+
 .content {
     flex: 1;
 }
@@ -37,6 +33,17 @@ html {
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+main {
+    flex: 1; /* Растягивается и выталкивает футер вниз */
+}
+
+footer {
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    text-align: center;
+    padding: 1px;
+    margin-top: auto; /* Важно для прилипания к низу */
 }
 
 html {

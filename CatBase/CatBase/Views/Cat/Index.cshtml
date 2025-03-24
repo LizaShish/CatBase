@@ -1,21 +1,24 @@
-﻿@model CatBase.DTOs.CatDTO
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model CatBase.DTOs.CatDTO
 @{
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 <h1>Cat List</h1>
-<!DOCTYPE html>
- <html lang="en">
-   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="~/css/styles.css" />
-   </head>
+   
   <a href="/Cat/CreateCat" class="btn btn-primary" style="margin-bottom:20px">Add Cat</a>
   <a href="/Home/Index" class="btn btn-primary" style="margin-bottom:20px">Home</a>
 
   <form method="get" asp-action="Index" asp-controller="Cat">
     <input type="text" name="searchString" placeholder="Search..." value="@Model.SearchTerm" />
+    <label for="pageSize">Показать:</label>
+    <select name="pageSize" onchange="this.form.submit()">
+        @{
+            var pageSize = ViewBag.PageSize ?? 10;
+        }
+        <option value="5" selected="@(pageSize == 5 ? "selected" : null)">5</option>
+        <option value="10" selected="@(pageSize == 10 ? "selected" : null)">10</option>
+        <option value="20" selected="@(pageSize == 20 ? "selected" : null)">20</option>
+    </select>
     <button type="submit">Search</button>
  </form>
 <style>
@@ -40,15 +43,15 @@
         {
             <tr><td colspan="3">No data</td></tr>
         }
-        @foreach (var cats in Model.Cats)
+        @foreach (var cat in Model.Cats)
         {
             <tr>
-                <td>@cats.CatsName</td>
-                <td>@cats.Breeds</td> 
+                <td>@cat.CatsName</td>
+                <td>@cat.Breeds</td> 
                 <td>
-                    @if (!string.IsNullOrEmpty(cats.Img))
+                    @if (!string.IsNullOrEmpty(cat.Img))
                     {
-                        <img src="@cats.Img" alt="Photo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
+                        <img src="@cat.Img" alt="Photo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 5px;">
                     }
                     else
                     {
@@ -56,10 +59,7 @@
                     }
                 </td>
                 <td>
-                    <form asp-action="DeleteCat" asp-controller="Cat" method="post">
-                        <input type="hidden" asp-for="Id" value="@cats.Id" />
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                    <a asp-action="Delete" asp-controller="Cat" asp-route-id="@cat.Id" class="btn btn-primary me-3">Delete</a>
                 </td>
             </tr>
         }
@@ -74,15 +74,18 @@
                 @for (int i = 1; i <= Model.TotalPages; i++)
                 {
                     <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                        <a class="page-link" href="@Url.Action("Cats", new { page = i, searchString = Model.SearchTerm })">@i</a>
+                        <a class="page-link" href="@Url.Action("Index", "Cat", new { page = i, searchString = Model.SearchTerm, pageSize = Model.PageSize })">@i</a>
                     </li>
                 }
             </ul>
         </nav>
     }
+    <div class="go-up">
+        <a href="#top" title="Наверх">
+            <i class="fas fa-arrow-up"></i> Наверх
+        </a>
+    </div>
 </div>
-
-</html>
 
 
 

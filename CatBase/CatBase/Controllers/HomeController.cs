@@ -11,11 +11,18 @@ namespace CatBase.Controllers
         {
             _homeService = homeService;
         }
+
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var homeInfo =  _homeService.GetHomeInfo();
+            var homeInfo = _homeService.GetHomeInfo();
+            var randomFacts = await _homeService.GetRandomFactsAsync();
+
+            ViewBag.RandomFacts = randomFacts;
             return View(homeInfo);
         }
+
+        
+
     }
 }

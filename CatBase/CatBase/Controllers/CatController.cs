@@ -23,6 +23,7 @@ namespace CatBase.Controllers
         public async Task<IActionResult> Index(string searchString, int page = 1, int pageSize = 10)
         {
             var catDTO = await _catService.GetCatsAsync(searchString, page, pageSize);
+            ViewBag.PageSize = pageSize;
             return View(catDTO);
             
         }
@@ -57,19 +58,19 @@ namespace CatBase.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Delete(Guid Id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            var cats = await _appDBContext.Cats
-                .Select(c => new { c.Id, c.CatsName }) 
-                .ToListAsync(); 
+            var cat = await _appDBContext.Cats.FindAsync(id); 
+
+            if(cat == null)
+            {
+                return NotFound();
+            }
 
             var model = new DeleteCatDTO
             {
-                CatsList = cats.Select(c => new SelectListItem
-                {
-                    Value = c.Id.ToString(),
-                    Text = c.CatsName
-                }).ToList()
+                Id = cat.Id,
+                CatsName = cat.CatsName
             };
 
             return View(model);
@@ -77,10 +78,10 @@ namespace CatBase.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteCat(Guid Id)
+        public async Task<IActionResult> DeleteCat(Guid id)
         {
 
-            var cat = await _appDBContext.Cats.FindAsync(Id);
+            var cat = await _appDBContext.Cats.FindAsync(id);
             if (cat == null)
             {
                 return NotFound();

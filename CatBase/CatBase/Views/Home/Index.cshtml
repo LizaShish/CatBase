@@ -30,6 +30,8 @@
             <p>
                 Whether you have one cat or multiple, this application helps you stay organized and never forget important information about your furry friends.
             </p>
+            
+            
         </div>
     </section>
 
@@ -42,6 +44,20 @@
                 <li>Update cat information easily.</li>
                 <li>Delete cats from your database.</li>
             </ul>
+            <h3>🐾 Random Facts About Cats:</h3>
+            @if (ViewBag.RandomFacts != null && ((List<string>)ViewBag.RandomFacts).Any())
+            {
+                <ul>
+                    @foreach (var fact in (List<string>)ViewBag.RandomFacts)
+                    {
+                        <li>@fact</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>Факты не найдены 😿</p>
+            }
         </div>
     </section>
     
